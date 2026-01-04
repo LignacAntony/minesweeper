@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Environment files
+.env
+.env.*
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Build outputs
+/dist/
+/build/
+/.vercel/
+
+# Coverage
+/coverage/
+
+# OS / Editor
+.DS_Store
+.vscode/

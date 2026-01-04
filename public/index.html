@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>💣 Minesweeper - Farcaster Mini App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💣 Minesweeper</h1>
+            <p class="subtitle">Farcaster Mini App</p>
+        </header>
+
+        <div class="game-header">
+            <div class="stat-box">
+                <span class="stat-icon">💣</span>
+                <span id="mines-count">10</span>
+            </div>
+            <button id="reset-btn" class="reset-btn">😊</button>
+            <div class="stat-box">
+                <span class="stat-icon">⏱️</span>
+                <span id="timer">000</span>
+            </div>
+        </div>
+
+        <div class="difficulty-selector">
+            <button class="diff-btn active" data-difficulty="easy">Easy</button>
+            <button class="diff-btn" data-difficulty="medium">Medium</button>
+            <button class="diff-btn" data-difficulty="hard">Hard</button>
+        </div>
+
+        <div id="game-board" class="game-board"></div>
+
+        <div id="game-message" class="game-message hidden"></div>
+
+        <div class="leaderboard-section">
+            <h2>🏆 Best Scores</h2>
+            <div class="leaderboard-tabs">
+                <button class="lb-tab active" data-difficulty="easy">Easy</button>
+                <button class="lb-tab" data-difficulty="medium">Medium</button>
+                <button class="lb-tab" data-difficulty="hard">Hard</button>
+            </div>
+            <div id="leaderboard" class="leaderboard">
+                <p class="loading">Loading...</p>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>📖 How to play</h3>
+            <ul>
+                <li><strong>Tap</strong>: Reveal a cell</li>
+                <li><strong>Long press</strong>: Place/Remove a flag 🚩</li>
+                <li>Numbers indicate adjacent mines</li>
+                <li>Find all cells without mines to win!</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@anthropic-ai/sdk"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
