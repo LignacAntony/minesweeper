@@ -357,6 +357,69 @@ header h1 {
     border-bottom: none;
 }
 
+/* Tip Section */
+.tip-section {
+    background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(124, 58, 237, 0.3);
+}
+
+.tip-section h3 {
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+}
+
+.tip-section p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+    margin-bottom: 15px;
+}
+
+.tip-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.tip-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(10px);
+}
+
+.tip-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.tip-btn:active {
+    transform: translateY(0);
+}
+
+.tip-btn.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.tip-note {
+    font-size: 0.75rem !important;
+    opacity: 0.7 !important;
+    margin-top: 12px !important;
+    margin-bottom: 0 !important;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
     width: 6px;

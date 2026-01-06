@@ -449,6 +449,41 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
+// Tip configuration - REPLACE WITH YOUR ADDRESS
+const TIP_CONFIG = {
+    recipientAddress: '0x93dc5cF29207F38c5c245A94d756Bbd25beF0334',
+    chainId: 8453 // Base mainnet
+};
+
+// Send tip via Farcaster SDK
+async function sendTip(amountEth) {
+    try {
+        const amountWei = BigInt(Math.floor(amountEth * 1e18)).toString(16);
+        
+        const result = await sdk.actions.sendTransaction({
+            chainId: `eip155:${TIP_CONFIG.chainId}`,
+            method: 'eth_sendTransaction',
+            params: {
+                to: TIP_CONFIG.recipientAddress,
+                value: `0x${amountWei}`,
+            }
+        });
+        
+        if (result?.transactionHash) {
+            alert(`🎉 Thank you for your tip! Tx: ${result.transactionHash.slice(0, 10)}...`);
+            return true;
+        }
+    } catch (error) {
+        console.error('Tip error:', error);
+        if (error.message?.includes('rejected')) {
+            alert('Transaction cancelled');
+        } else {
+            alert('Could not send tip. Make sure you have ETH on Base network.');
+        }
+    }
+    return false;
+}
+
 // Event listeners
 document.addEventListener('DOMContentLoaded', async () => {
     await initFarcaster();
@@ -477,6 +512,23 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.querySelectorAll('.lb-tab').forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
             loadLeaderboard(tab.dataset.difficulty);
+        });
+    });
+    
+    // Tip buttons
+    document.querySelectorAll('.tip-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const amount = parseFloat(btn.dataset.amount);
+            btn.classList.add('loading');
+            btn.textContent = 'Sending...';
+            
+            await sendTip(amount);
+            
+            btn.classList.remove('loading');
+            // Restore original text
+            if (amount === 0.001) btn.textContent = '☕ 0.001 ETH';
+            else if (amount === 0.005) btn.textContent = '🍕 0.005 ETH';
+            else if (amount === 0.01) btn.textContent = '🎮 0.01 ETH';
         });
     });
 });
