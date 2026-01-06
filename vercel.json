@@ -6,7 +6,6 @@
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "server/server.js" },
-    { "src": "/.well-known/(.*)", "dest": "server/server.js" },
     { "src": "/app.js", "dest": "public/app.js" },
     { "src": "/styles.css", "dest": "public/styles.css" },
     { "src": "/index.html", "dest": "public/index.html" },
@@ -14,5 +13,12 @@
     { "src": "/og-image.png", "dest": "public/og-image.png" },
     { "src": "/splash.png", "dest": "public/splash.png" },
     { "src": "^/$", "dest": "public/index.html" }
+  ],
+  "redirects": [
+    {
+      "source": "/.well-known/farcaster.json",
+      "destination": "https://api.farcaster.xyz/miniapps/hosted-manifest/019b955f-f6aa-99f5-3d67-43e0775b4f10",
+      "permanent": false
+    }
   ]
 }
