@@ -4,26 +4,22 @@ const router = express.Router();
 // Farcaster Mini App Manifest
 router.get('/farcaster.json', (req, res) => {
     const appUrl = process.env.APP_URL || `https://${req.get('host')}`;
-    
+
     const manifest = {
-        accountAssociation: {
-            header: "eyJmaWQiOjAsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwIn0",
-            payload: "eyJkb21haW4iOiJleGFtcGxlLmNvbSJ9",
-            signature: "MHgwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAw"
-        },
         frame: {
+            name: "Minesweeper",
             version: "1",
-            name: "💣 Démineur",
             iconUrl: `${appUrl}/icon.png`,
-            homeUrl: appUrl,
-            imageUrl: `${appUrl}/og-image.png`,
-            buttonTitle: "Jouer au Démineur",
+            homeUrl: appUrl.endsWith('/') ? appUrl : `${appUrl}/`,
+            subtitle: "Minesweeper game",
+            primaryCategory: "games",
+            description: "Classic Minesweeper as a Farcaster Mini App: quick taps, smart flags, timed runs, and rankings across three difficulties.",
+            splashBackgroundColor: "#000000",
             splashImageUrl: `${appUrl}/splash.png`,
-            splashBackgroundColor: "#1a1a2e",
-            webhookUrl: `${appUrl}/api/webhook`
+            tags: ["minesweeper", "game", "démineur"]
         }
     };
-    
+
     res.json(manifest);
 });
 
