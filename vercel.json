@@ -5,7 +5,11 @@
     { "src": "public/**", "use": "@vercel/static" }
   ],
   "routes": [
-    { "src": "/.well-known/(.*)", "dest": "server/server.js" },
+    {
+      "src": "/.well-known/farcaster.json",
+      "status": 308,
+      "headers": { "Location": "https://api.farcaster.xyz/miniapps/hosted-manifest/019b955f-f6aa-99f5-3d67-43e0775b4f10" }
+    },
     { "src": "/api/(.*)", "dest": "server/server.js" },
     { "src": "/app.js", "dest": "public/app.js" },
     { "src": "/styles.css", "dest": "public/styles.css" },
