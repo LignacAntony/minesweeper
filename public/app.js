@@ -430,10 +430,17 @@ async function loadLeaderboard(difficulty = null) {
     const diff = difficulty || gameState.difficulty;
     
     try {
-        const response = await fetch(`/api/scores/${diff}`);
+        const response = await fetch(`/api/scores?difficulty=${diff}`);
+        
+        if (!response.ok) {
+            console.error('Failed to load scores:', response.status);
+            leaderboardEl.innerHTML = '<p class="empty">No scores yet</p>';
+            return;
+        }
+        
         const scores = await response.json();
         
-        if (scores.length === 0) {
+        if (!Array.isArray(scores) || scores.length === 0) {
             leaderboardEl.innerHTML = '<p class="empty">No scores yet</p>';
             return;
         }
