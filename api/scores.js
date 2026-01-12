@@ -5,10 +5,16 @@ let initialized = false;
 
 function getDb() {
     if (!db) {
-        db = createClient({
-            url: process.env.TURSO_DATABASE_URL || 'file:local.db',
-            authToken: process.env.TURSO_AUTH_TOKEN
-        });
+        const url = process.env.TURSO_DATABASE_URL;
+        const authToken = process.env.TURSO_AUTH_TOKEN;
+        
+        console.log('Connecting to Turso:', url ? 'URL set' : 'URL missing', authToken ? 'Token set' : 'Token missing');
+        
+        if (!url || !authToken) {
+            throw new Error('Missing TURSO_DATABASE_URL or TURSO_AUTH_TOKEN');
+        }
+        
+        db = createClient({ url, authToken });
     }
     return db;
 }
