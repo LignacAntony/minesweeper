@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 const { saveScore, getTopScores, getUserScores } = require('../db/database');
 
-// Get top scores for a difficulty
-router.get('/:difficulty', async (req, res) => {
+// Get top scores for a difficulty (supports both query param and path param)
+router.get('/', async (req, res) => {
     try {
-        const { difficulty } = req.params;
+        const { difficulty } = req.query;
         
-        if (!['easy', 'medium', 'hard'].includes(difficulty)) {
-            return res.status(400).json({ error: 'Invalid difficulty' });
+        if (!difficulty || !['easy', 'medium', 'hard'].includes(difficulty)) {
+            return res.status(400).json({ error: 'Invalid or missing difficulty' });
         }
         
         const scores = await getTopScores(difficulty, 10);

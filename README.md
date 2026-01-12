@@ -23,7 +23,7 @@ npm install
 npm start
 ```
 
-Le serveur démarre sur `http://localhost:3000`
+Le serveur démarre sur `http://localhost:3001`
 
 ## 📁 Structure du projet
 
@@ -82,7 +82,7 @@ minesweeper-farcaster/
 
 ### Variables d'environnement
 
-- `PORT` - Port du serveur (défaut: 3000)
+- `PORT` - Port du serveur (défaut: 3001)
 - `APP_URL` - URL publique de l'app (pour le manifest)
 
 ### Déployer sur Vercel/Railway

@@ -448,7 +448,7 @@ async function loadLeaderboard(difficulty = null) {
     
     try {
         const response = await fetch(`/api/scores?difficulty=${diff}`);
-        
+
         if (!response.ok) {
             console.error('Failed to load scores:', response.status);
             leaderboardEl.innerHTML = '<p class="empty">No scores yet</p>';
