@@ -337,8 +337,10 @@ async function gameOver(win, hitRow = -1, hitCol = -1) {
         clearInterval(gameState.timerInterval);
     }
     
-    // Reveal all mines
+    // Reveal all mines and show wrong flags
     for (const mine of gameState.mines) {
+        // Remove flag from mine cells so the bomb is visible
+        gameState.flagged[mine.r][mine.c] = false;
         gameState.revealed[mine.r][mine.c] = true;
         updateCell(mine.r, mine.c);
         
@@ -346,6 +348,21 @@ async function gameOver(win, hitRow = -1, hitCol = -1) {
             const cell = boardEl.querySelector(`[data-row="${mine.r}"][data-col="${mine.c}"]`);
             if (cell) {
                 cell.classList.add('mine-hit');
+            }
+        }
+    }
+    
+    // Show wrongly placed flags (flags on non-mine cells)
+    if (!win) {
+        for (let r = 0; r < gameState.rows; r++) {
+            for (let c = 0; c < gameState.cols; c++) {
+                if (gameState.flagged[r][c] && gameState.board[r][c] !== -1) {
+                    const cell = boardEl.querySelector(`[data-row="${r}"][data-col="${c}"]`);
+                    if (cell) {
+                        cell.classList.add('wrong-flag');
+                        cell.textContent = '❌';
+                    }
+                }
             }
         }
     }

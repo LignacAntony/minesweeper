@@ -194,6 +194,11 @@ header h1 {
     box-shadow: 0 0 20px #ff0000;
 }
 
+.cell.wrong-flag {
+    background: var(--cell-flag);
+    color: #e74c3c;
+}
+
 /* Number colors */
 .cell[data-number="1"] { color: #3498db; }
 .cell[data-number="2"] { color: #27ae60; }
