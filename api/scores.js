@@ -114,7 +114,7 @@ module.exports = async (req, res) => {
     }
     
     try {
-        await initDatabase();
+        // Table is created manually on Turso, no need to call initDatabase()
         
         // POST - Save a new score
         if (req.method === 'POST') {
