@@ -46,18 +46,25 @@ const LONG_PRESS_DURATION = 500;
 async function initFarcaster() {
     try {
         const context = await sdk.context;
+        console.log('Farcaster context:', context);
         
-        if (context?.user) {
+        if (context?.user?.fid) {
             gameState.userFid = context.user.fid;
             gameState.username = context.user.username || `User ${context.user.fid}`;
+            console.log('User authenticated:', gameState.userFid, gameState.username);
+        } else {
+            // No user in context, use demo mode
+            console.log('No user in Farcaster context, using demo mode');
+            gameState.userFid = Math.floor(Math.random() * 10000) + 1;
+            gameState.username = 'Demo User';
         }
         
         // Signal ready to Farcaster
         sdk.actions.ready();
     } catch (error) {
-        console.log('Running outside Farcaster context');
+        console.log('Running outside Farcaster context:', error);
         // Demo mode
-        gameState.userFid = Math.floor(Math.random() * 10000);
+        gameState.userFid = Math.floor(Math.random() * 10000) + 1;
         gameState.username = 'Demo User';
     }
 }
@@ -405,6 +412,13 @@ function updateMinesCount() {
 
 // Save score to server
 async function saveScore() {
+    console.log('Saving score...', {
+        userFid: gameState.userFid,
+        username: gameState.username,
+        difficulty: gameState.difficulty,
+        time: gameState.timer
+    });
+    
     try {
         const response = await fetch('/api/scores', {
             method: 'POST',
@@ -417,8 +431,11 @@ async function saveScore() {
             })
         });
         
+        const data = await response.json();
+        console.log('Save score response:', response.status, data);
+        
         if (!response.ok) {
-            console.error('Failed to save score');
+            console.error('Failed to save score:', data);
         }
     } catch (error) {
         console.error('Error saving score:', error);
